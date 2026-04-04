@@ -1,0 +1,29 @@
+package underscorego
+
+func Intersection[T comparable](arrays ...[]T) []T {
+	if len(arrays) == 0 {
+		return []T{}
+	}
+	counts := make(map[T]int)
+	for _, e := range arrays[0] {
+		counts[e] = 1
+	}
+	for i := 1; i < len(arrays); i++ {
+		seen := make(map[T]bool)
+		for _, e := range arrays[i] {
+			if !seen[e] && counts[e] == i {
+				counts[e]++
+				seen[e] = true
+			}
+		}
+	}
+	r := []T{}
+	seen := make(map[T]bool)
+	for _, e := range arrays[0] {
+		if !seen[e] && counts[e] == len(arrays) {
+			r = append(r, e)
+			seen[e] = true
+		}
+	}
+	return r
+}
