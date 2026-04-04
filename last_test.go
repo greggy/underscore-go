@@ -49,7 +49,9 @@ func Test_Last_Property_ConcatWithInitial(t *testing.T) {
 		if len(head)+len(tail) != len(x) {
 			return false
 		}
-		combined := append(head, tail...)
+		combined := make([]int, 0, len(head)+len(tail))
+		combined = append(combined, head...)
+		combined = append(combined, tail...)
 		for i := range x {
 			if combined[i] != x[i] {
 				return false

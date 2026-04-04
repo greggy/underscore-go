@@ -46,7 +46,7 @@ func Test_Map_Property_IdentityIsNoop(t *testing.T) {
 func Test_Map_Property_CompositionEquivalence(t *testing.T) {
 	f := func(x []int) bool {
 		double := func(i int) int { return i * 2 }
-		toString := func(i int) string { return strconv.Itoa(i) }
+		toString := strconv.Itoa
 		composed := func(i int) string { return toString(double(i)) }
 
 		r1 := Map(Map(x, double), toString)

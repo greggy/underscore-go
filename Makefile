@@ -1,4 +1,4 @@
-.PHONY: build test lint vet fmt check
+.PHONY: build test lint fmt fmt-fix check
 
 build:
 	go build ./...
@@ -6,11 +6,8 @@ build:
 test:
 	go test ./... -count=1 -v
 
-lint: vet fmt
-	@echo "Lint passed"
-
-vet:
-	go vet ./...
+lint:
+	golangci-lint run ./...
 
 fmt:
 	@test -z "$$(gofmt -l .)" || (gofmt -l . && echo "Run 'make fmt-fix' to fix" && exit 1)
@@ -18,4 +15,4 @@ fmt:
 fmt-fix:
 	gofmt -w .
 
-check: build lint test
+check: build fmt lint test
