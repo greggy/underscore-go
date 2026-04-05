@@ -2,6 +2,8 @@ package underscorego
 
 import "golang.org/x/exp/constraints"
 
+// Max returns the maximum element in x.
+// Returns the zero value if x is empty.
 func Max[T constraints.Ordered](x []T) T {
 	if len(x) == 0 {
 		var zero T

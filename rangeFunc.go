@@ -1,5 +1,9 @@
 package underscorego
 
+// Range generates a slice of integers. It accepts one to three arguments:
+//   - Range(stop): generates [0, 1, ..., stop-1]
+//   - Range(start, stop): generates [start, start+1, ..., stop-1]
+//   - Range(start, stop, step): generates values from start to stop (exclusive) with the given step
 func Range(args ...int) []int {
 	var start, stop, step int
 	switch len(args) {

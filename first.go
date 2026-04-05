@@ -1,5 +1,7 @@
 package underscorego
 
+// First returns a new slice containing the first n elements of x.
+// If n exceeds len(x), all elements are returned.
 func First[T any](x []T, n int) []T {
 	if n <= 0 {
 		return []T{}

@@ -1,5 +1,6 @@
 package underscorego
 
+// Intersection returns a slice of elements that are present in all provided slices.
 func Intersection[T comparable](arrays ...[]T) []T {
 	if len(arrays) == 0 {
 		return []T{}

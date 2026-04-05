@@ -1,5 +1,6 @@
 package underscorego
 
+// Flatten flattens a slice of slices into a single slice.
 func Flatten[T any](x [][]T) []T {
 	n := 0
 	for _, inner := range x {

@@ -6,6 +6,8 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
+// SortBy returns a sorted copy of x, ordered by the result of applying fn to each element.
+// The original slice is not modified.
 func SortBy[T constraints.Ordered](x []T, fn func(T) T) []T {
 	type pair struct {
 		val T

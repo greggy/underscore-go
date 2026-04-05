@@ -79,34 +79,288 @@ go get github.com/greggy/underscore-go
 |----------|-----------|-------------|
 | **Range** | `Range(args ...int) []int` | Generates a slice of integers. Accepts `(stop)`, `(start, stop)`, or `(start, stop, step)`. |
 
-## Usage
+## Examples
+
+### Each
 
 ```go
-package main
+u.Each([]string{"a", "b", "c"}, func(s string) {
+    fmt.Println(s)
+})
+// a
+// b
+// c
+```
 
-import (
-    "fmt"
-    u "github.com/greggy/underscore-go"
-)
+### Map
 
-func main() {
-    nums := []int{1, 2, 3, 4, 5, 6}
+```go
+u.Map([]int{1, 2, 3}, func(n int) int { return n * 2 })
+// [2, 4, 6]
 
-    evens := u.Filter(nums, func(n int) bool { return n%2 == 0 })
-    fmt.Println(evens) // [2 4 6]
+u.Map([]int{1, 2, 3}, func(n int) string { return fmt.Sprintf("#%d", n) })
+// ["#1", "#2", "#3"]
+```
 
-    doubled := u.Map(nums, func(n int) int { return n * 2 })
-    fmt.Println(doubled) // [2 4 6 8 10 12]
+### Filter
 
-    sum := u.Reduce(nums, func(a, b int) int { return a + b }, 0)
-    fmt.Println(sum) // 21
+```go
+u.Filter([]int{1, 2, 3, 4, 5}, func(n int) bool { return n%2 == 0 })
+// [2, 4]
+```
 
-    grouped := u.GroupBy(nums, func(n int) string {
-        if n%2 == 0 { return "even" }
-        return "odd"
-    })
-    fmt.Println(grouped) // map[even:[2 4 6] odd:[1 3 5]]
-}
+### Reject
+
+```go
+u.Reject([]int{1, 2, 3, 4, 5}, func(n int) bool { return n%2 == 0 })
+// [1, 3, 5]
+```
+
+### Reduce
+
+```go
+u.Reduce([]int{1, 2, 3, 4}, func(a, b int) int { return a + b }, 0)
+// 10
+```
+
+### ReduceRight
+
+```go
+u.ReduceRight([]string{"a", "b", "c"}, func(a, b string) string { return a + b }, "")
+// "cba"
+```
+
+### Every
+
+```go
+u.Every([]int{2, 4, 6}, func(n int) bool { return n%2 == 0 })
+// true
+
+u.Every([]int{2, 3, 6}, func(n int) bool { return n%2 == 0 })
+// false
+```
+
+### Some
+
+```go
+u.Some([]int{1, 3, 5, 6}, func(n int) bool { return n%2 == 0 })
+// true
+
+u.Some([]int{1, 3, 5}, func(n int) bool { return n%2 == 0 })
+// false
+```
+
+### Partition
+
+```go
+pass, fail := u.Partition([]int{1, 2, 3, 4, 5}, func(n int) bool { return n > 3 })
+// pass: [4, 5]
+// fail: [1, 2, 3]
+```
+
+### Contains
+
+```go
+u.Contains([]string{"a", "b", "c"}, "b")
+// true
+
+u.Contains([]string{"a", "b", "c"}, "z")
+// false
+```
+
+### Find
+
+```go
+result := u.Find([]int{1, 2, 3, 4}, func(n int) bool { return n > 2 })
+// *result == 3
+
+result = u.Find([]int{1, 2, 3}, func(n int) bool { return n > 10 })
+// result == nil
+```
+
+### FindIndex
+
+```go
+u.FindIndex([]int{10, 20, 30}, func(n int) bool { return n >= 20 })
+// 1
+
+u.FindIndex([]int{10, 20, 30}, func(n int) bool { return n > 100 })
+// -1
+```
+
+### FindLastIndex
+
+```go
+u.FindLastIndex([]int{1, 2, 3, 2, 1}, func(n int) bool { return n == 2 })
+// 3
+```
+
+### IndexOf
+
+```go
+u.IndexOf([]string{"a", "b", "c", "b"}, "b")
+// 1
+
+u.IndexOf([]string{"a", "b", "c"}, "z")
+// -1
+```
+
+### LastIndexOf
+
+```go
+u.LastIndexOf([]int{1, 2, 3, 2, 1}, 2)
+// 3
+```
+
+### First
+
+```go
+u.First([]int{1, 2, 3, 4, 5}, 3)
+// [1, 2, 3]
+```
+
+### Last
+
+```go
+u.Last([]int{1, 2, 3, 4, 5}, 2)
+// [4, 5]
+```
+
+### Initial
+
+```go
+u.Initial([]int{1, 2, 3, 4, 5}, 2)
+// [1, 2, 3]
+```
+
+### Rest
+
+```go
+u.Rest([]int{1, 2, 3, 4, 5}, 2)
+// [3, 4, 5]
+```
+
+### Flatten
+
+```go
+u.Flatten([][]int{{1, 2}, {3, 4}, {5}})
+// [1, 2, 3, 4, 5]
+```
+
+### Chunk
+
+```go
+u.Chunk([]int{1, 2, 3, 4, 5}, 2)
+// [[1, 2], [3, 4], [5]]
+```
+
+### Uniq
+
+```go
+u.Uniq([]int{1, 2, 1, 3, 2, 4})
+// [1, 2, 3, 4]
+```
+
+### Union
+
+```go
+u.Union([]int{1, 2, 3}, []int{3, 4, 5})
+// [1, 2, 3, 4, 5]
+```
+
+### Intersection
+
+```go
+u.Intersection([]int{1, 2, 3, 4}, []int{2, 4, 6}, []int{4, 2, 8})
+// [2, 4]
+```
+
+### Difference
+
+```go
+u.Difference([]int{1, 2, 3, 4, 5}, []int{2, 4}, []int{5})
+// [1, 3]
+```
+
+### Without
+
+```go
+u.Without([]int{1, 2, 3, 4, 5}, 3, 5)
+// [1, 2, 4]
+```
+
+### Min
+
+```go
+u.Min([]int{3, 1, 4, 1, 5})
+// 1
+
+u.Min([]float64{2.7, 1.1, 3.5})
+// 1.1
+```
+
+### Max
+
+```go
+u.Max([]int{3, 1, 4, 1, 5})
+// 5
+```
+
+### SortBy
+
+```go
+u.SortBy([]int{3, 1, 2}, func(n int) int { return n })
+// [1, 2, 3]
+
+u.SortBy([]int{-3, 1, -2}, func(n int) int { return n * n })
+// [1, -2, -3]
+```
+
+### GroupBy
+
+```go
+u.GroupBy([]string{"one", "two", "three"}, func(s string) int { return len(s) })
+// map[3:["one" "two"] 5:["three"]]
+```
+
+### CountBy
+
+```go
+u.CountBy([]int{1, 2, 3, 4, 5}, func(n int) string {
+    if n%2 == 0 { return "even" }
+    return "odd"
+})
+// map["even":2 "odd":3]
+```
+
+### Shuffle
+
+```go
+u.Shuffle([]int{1, 2, 3, 4, 5})
+// [3, 5, 1, 4, 2] (random order)
+```
+
+### Sample
+
+```go
+u.Sample([]int{1, 2, 3, 4, 5}, 3)
+// [5, 2, 4] (3 random unique elements)
+```
+
+### Range
+
+```go
+u.Range(5)
+// [0, 1, 2, 3, 4]
+
+u.Range(1, 5)
+// [1, 2, 3, 4]
+
+u.Range(0, 20, 5)
+// [0, 5, 10, 15]
+
+u.Range(0, -5, -1)
+// [0, -1, -2, -3, -4]
 ```
 
 ## Development
@@ -114,7 +368,7 @@ func main() {
 ```bash
 make build   # compile
 make test    # run tests
-make lint    # go vet + gofmt check
+make lint    # golangci-lint
 make fmt-fix # auto-format
 make check   # build + lint + test
 ```

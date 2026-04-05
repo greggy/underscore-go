@@ -1,5 +1,7 @@
 package underscorego
 
+// Chunk splits the slice x into groups of the given size.
+// The last chunk may contain fewer elements.
 func Chunk[T any](x []T, size int) [][]T {
 	if size <= 0 || len(x) == 0 {
 		return [][]T{}
