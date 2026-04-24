@@ -5,7 +5,7 @@ package underscorego
 func Partition[T any](x []T, fn func(T) bool) ([]T, []T) {
 	pass := []T{}
 	fail := []T{}
-	for _, e := range x {
+	for _, e := range seqAll(x) {
 		if fn(e) {
 			pass = append(pass, e)
 		} else {

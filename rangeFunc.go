@@ -33,14 +33,8 @@ func Range(args ...int) []int {
 		return []int{}
 	}
 	r := []int{}
-	if step > 0 {
-		for i := start; i < stop; i += step {
-			r = append(r, i)
-		}
-	} else {
-		for i := start; i > stop; i += step {
-			r = append(r, i)
-		}
+	for i := range seqRange(start, stop, step) {
+		r = append(r, i)
 	}
 	return r
 }

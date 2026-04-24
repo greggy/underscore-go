@@ -4,7 +4,7 @@ package underscorego
 // for which fn returns true.
 func Filter[T any](x []T, fn func(T) bool) []T {
 	r := []T{}
-	for _, e := range x {
+	for _, e := range seqAll(x) {
 		if fn(e) {
 			r = append(r, e)
 		}

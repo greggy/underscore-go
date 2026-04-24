@@ -1,16 +1,16 @@
 package underscorego
 
-import "golang.org/x/exp/constraints"
+import "cmp"
 
 // Max returns the maximum element in x.
 // Returns the zero value if x is empty.
-func Max[T constraints.Ordered](x []T) T {
+func Max[T cmp.Ordered](x []T) T {
 	if len(x) == 0 {
 		var zero T
 		return zero
 	}
 	m := x[0]
-	for _, e := range x[1:] {
+	for _, e := range seqAll(x[1:]) {
 		if e > m {
 			m = e
 		}

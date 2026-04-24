@@ -6,12 +6,12 @@ func Intersection[T comparable](arrays ...[]T) []T {
 		return []T{}
 	}
 	counts := make(map[T]int)
-	for _, e := range arrays[0] {
+	for _, e := range seqAll(arrays[0]) {
 		counts[e] = 1
 	}
-	for i := 1; i < len(arrays); i++ {
+	for i := range seqRange(1, len(arrays), 1) {
 		seen := make(map[T]bool)
-		for _, e := range arrays[i] {
+		for _, e := range seqAll(arrays[i]) {
 			if !seen[e] && counts[e] == i {
 				counts[e]++
 				seen[e] = true
@@ -20,7 +20,7 @@ func Intersection[T comparable](arrays ...[]T) []T {
 	}
 	r := []T{}
 	seen := make(map[T]bool)
-	for _, e := range arrays[0] {
+	for _, e := range seqAll(arrays[0]) {
 		if !seen[e] && counts[e] == len(arrays) {
 			r = append(r, e)
 			seen[e] = true

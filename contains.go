@@ -2,7 +2,7 @@ package underscorego
 
 // Contains returns true if the slice x contains the value y.
 func Contains[T comparable](x []T, y T) bool {
-	for _, e := range x {
+	for _, e := range seqAll(x) {
 		if e == y {
 			return true
 		}
