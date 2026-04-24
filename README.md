@@ -1,6 +1,6 @@
 # underscore-go
 
-A Go generic utility library inspired by [Underscore.js](https://underscorejs.org). Provides functional helpers for slices, maps, and common collection operations using Go 1.18+ generics.
+A Go generic utility library inspired by [Underscore.js](https://underscorejs.org). Provides functional helpers for slices, maps, and common collection operations using Go 1.25+ generics and `iter`-based traversal internally.
 
 ## Install
 

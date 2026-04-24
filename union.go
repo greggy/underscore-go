@@ -5,8 +5,8 @@ package underscorego
 func Union[T comparable](arrays ...[]T) []T {
 	seen := make(map[T]bool)
 	r := []T{}
-	for _, arr := range arrays {
-		for _, e := range arr {
+	for arr := range seqValues(arrays) {
+		for _, e := range seqAll(arr) {
 			if !seen[e] {
 				seen[e] = true
 				r = append(r, e)
